@@ -1,0 +1,35 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<h1>Your Tasks</h1>
+<table class="table table-bordered border-primary table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Description</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Action Items</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let todo of todoList; index as i">
+            <th scope="row">{{i+1}}</th>
+            <td>
+                <input type="text" *ngIf="editable" [(ngModel)]="todo.description">
+                <ng-container *ngIf="!editable">{{todo.description}}</ng-container>
+            </td>
+            <td>
+                <input type="date" *ngIf="editable" [(ngModel)]="todo.dueDate">
+                <ng-container *ngIf="!editable">{{todo.dueDate | date:"fullDate"}}</ng-container>
+            </td>
+            <td>{{todo.priority}}</td>
+            <td>
+                <button type="button" (click)="deleteTodoItem(this.i)" class="btn btn-outline-danger">Delete</button>
+                <button *ngIf="!editable" type="button" (click)="editTodoRow()" class="btn btn-outline-warning">Update</button>
+                <button type="button" (click)="celebrate()" class="btn btn-outline-success">Complete</button>
+                <button *ngIf="editable" type="button" (click)="saveTodoRow(todo,i)" class="btn btn-outline-primary">Save</button>
+                <button type="button" (click)="uploadProgress(todo)" class="btn btn-outline-dark">Upload Progress</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
